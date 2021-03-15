@@ -5,6 +5,6 @@ set dbname=wordpress
 set dbuser=root
 set dbpass=
 set mysqlpath=C:\xampp\mysql\bin
-CScript zip.vbs %bkdir% %cd%\backup.zip
+CScript zip.vbs %bkdir% %cd%\backup%date%.zip
 %mysqlpath%\mysqldump %dbname% -u %dbuser% > %cd%\backup.sql
 pause
