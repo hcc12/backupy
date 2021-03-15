@@ -16,15 +16,15 @@ if not errorlevel 1 set abspath=1
 
 if %abspath%==0 set bkfile=%cd%\%bkfile%
 
-if not exist "%bkfile%" (
-	set bkfile=backup%1.zip
+if not exist "%bkfile%.zip" (
+	set bkfile=backup%1
 	if %abspath%==0 set bkfile=%cd%\!bkfile!
-	if not exist "!bkfile!" goto:eof
+	if not exist "!bkfile!.zip" goto:eof
 )
 
-CScript unzip.vbs %cd%\backup.zip %bkdir%
+CScript unzip.vbs %bkfile%.zip %bkdir%
 @echo CREATE DATABASE %dbname% > %cd%\tmp.sql
 %mysqlpath%\mysql -u %dbuser% < %cd%\tmp.sql
-%mysqlpath%\mysql %dbname% -u %dbuser% < %cd%\backup.sql
+%mysqlpath%\mysql %dbname% -u %dbuser% < %bkfile%.sql
 del %cd%\tmp.sql
 pause
